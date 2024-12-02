@@ -37,23 +37,23 @@ public ResponseEntity<String> updateCart(@RequestBody BasketRequestDTO basketReq
 }
 
 @Validated
-@PostMapping("/modifyCartItems")
+@PutMapping("/modifyCartItems")
 public ResponseEntity<String> modifyCartItems(@RequestBody BasketRequestDTO basketRequest){
 	logger.info("the request is === {}",basketRequest);
 	String responsemsg = basketService.updateBasketDetails(basketRequest);
 	return ResponseEntity.ok(responsemsg);
 }
 
-@DeleteMapping("/products/{id}")
+@DeleteMapping("/removeCartItems")
 public ResponseEntity<String> deleteProducts(
-        @PathVariable("id") Integer cartMapId) {
-    String response = basketService.deleteProduct(cartMapId);
+      @RequestBody BasketRequestDTO basketRequest) {
+    String response = basketService.deleteProduct(basketRequest);
     return ResponseEntity.ok(response);
 }
 
-@GetMapping("/viewCart")
-public ResponseEntity<List<BasketEntity>> viewProducts(){
-	List<BasketEntity> cartList = basketService.viewCartItems();
+@GetMapping("/viewCart/{id}")
+public ResponseEntity<List<BasketEntity>> viewProducts(@PathVariable("id") Integer cartId){
+	List<BasketEntity> cartList = basketService.viewCartItems(cartId);
 	return ResponseEntity.ok(cartList);
 }
 }
