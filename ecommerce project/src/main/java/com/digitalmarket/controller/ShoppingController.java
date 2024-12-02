@@ -37,8 +37,9 @@ public ResponseEntity<String> updateCart(@RequestBody BasketRequestDTO basketReq
 }
 
 @Validated
-@PutMapping("/modifyCartItems")
-public ResponseEntity<String> modifyCartItems(@RequestBody BasketEntity basketRequest){
+@PostMapping("/modifyCartItems")
+public ResponseEntity<String> modifyCartItems(@RequestBody BasketRequestDTO basketRequest){
+	logger.info("the request is === {}",basketRequest);
 	String responsemsg = basketService.updateBasketDetails(basketRequest);
 	return ResponseEntity.ok(responsemsg);
 }

@@ -12,5 +12,7 @@ public interface BasketRepository extends JpaRepository<BasketEntity,Integer> {
 	public BasketEntity findByCartIdCartIdAndProductIdProductId(Integer cartId,Integer productId);
 	public List<BasketEntity> findAll();
 	public void deleteByProductId(Integer productId);
+	public BasketEntity findCartProductMapIdByCartIdAndProductId(ShoppingcartEntity cartId,ProductEntity productId);
+	
 
 }

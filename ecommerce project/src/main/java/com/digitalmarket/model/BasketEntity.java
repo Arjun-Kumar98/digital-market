@@ -5,7 +5,8 @@ import com.digitalmarket.model.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name="shoppingcart_product_mapping")
+@Table(name="shoppingcart_product_mapping",
+uniqueConstraints = @UniqueConstraint(columnNames = {"cart_id", "product_id"}))
 public class BasketEntity {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
