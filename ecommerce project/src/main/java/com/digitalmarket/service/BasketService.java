@@ -1,18 +1,21 @@
 package com.digitalmarket.service;
 import java.util.Optional;
 import com.digitalmarket.exception.*;
+import com.digitalmarket.controller.UserController;
 import com.digitalmarket.dto.*;
 import java.util.*;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
 import com.digitalmarket.repository.*;
 import com.digitalmarket.model.*;
 @Service
 public class BasketService {
-
+	private static final Logger logger = LoggerFactory.getLogger(BasketService.class);
 	@Autowired
 	private ProductRepository productRepository;
 	

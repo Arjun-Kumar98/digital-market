@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.digitalmarket.repository.*;
 import com.digitalmarket.model.*;
 import com.digitalmarket.jwt.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.digitalmarket.service.PasswordService;
 
 @Service
 public class UserService {
-
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 	@Autowired
 	private UserRepository userRepository;
 	

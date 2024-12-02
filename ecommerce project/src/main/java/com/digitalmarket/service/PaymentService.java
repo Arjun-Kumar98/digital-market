@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import com.digitalmarket.exception.*;
 import com.digitalmarket.dto.*;
 import java.util.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import com.digitalmarket.repository.*;
 import com.digitalmarket.model.*;
 @Service
 public class PaymentService {
-
+	private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
 	  @Autowired
 	    private OrderRepository orderRepository;
 	  
