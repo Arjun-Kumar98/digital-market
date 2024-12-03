@@ -34,6 +34,10 @@ private String emailId;
 @JsonProperty("address")
 private String address;
 
+@Column(name="role_id")
+@JsonProperty("roleId")
+private Integer roleId;
+
 public Integer getUserId()
 {
 	return userId;
@@ -66,4 +70,11 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.address = address;
 }
+public Integer getRoleId() {
+	return roleId;
+}
+public void setRoleId(Integer roleId) {
+	this.roleId = roleId;
+}
+
 }

@@ -43,8 +43,8 @@ public ResponseEntity<String> deleteProductDetails(@PathVariable("id") Integer o
 }
 }
 @GetMapping("/payment/{id}")
-public ResponseEntity<String> processOrderPayment(@PathVariable("id") Integer orderId){
-	String responsemsg = paymentService.processPayment(orderId);
+public ResponseEntity<String> processOrderPayment(@PathVariable("id") Integer orderId,@RequestParam(required=true) String coupon){
+	String responsemsg = paymentService.processPayment(orderId,coupon);
 	return ResponseEntity.ok(responsemsg);
 }
 
@@ -53,4 +53,14 @@ public ResponseEntity<List<BasketEntity>> viewOrderList(@PathVariable("id") Inte
 	List<BasketEntity> cartList = orderService.viewOrderHistory(userId);
 	return ResponseEntity.ok(cartList);
 }
+
+@PutMapping("/updateOrderStatus/{id}")
+public ResponseEntity<String> updateOrderStatus(@PathVariable("id") Integer orderId,
+		@RequestParam(required = true) String status) {
+	String responseMsg = orderService.updateOrderStatus(orderId, status);
+	return ResponseEntity.ok(responseMsg);
+
 }
+
+}
+

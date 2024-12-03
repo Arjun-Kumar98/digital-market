@@ -55,4 +55,9 @@ public List<ProductEntity> findbyPrice(Double startPrice,Double endPrice){
 	return productList;
 }
 
+public List<ProductEntity> listProducts(){
+	List<ProductEntity> productList = productRepository.findAll();
+	return productList;
+}
+
 }

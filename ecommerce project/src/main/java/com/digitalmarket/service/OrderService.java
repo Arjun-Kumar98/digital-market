@@ -27,6 +27,9 @@ public class OrderService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	private <T> T fetchEntityById(Optional<T> optionalEntity, String entityName) {
 		return optionalEntity.orElseThrow(() -> new EntityNotFoundException(entityName + "not found"));
 	}
@@ -81,9 +84,38 @@ public class OrderService {
 	}
 	
 	public List <BasketEntity> viewOrderHistory(Integer userId) {
+        UserEntity user = fetchEntityById(userRepository.findById(userId),"user");
+        Integer roleId = user.getRoleId();
+        if(roleId==1) {
+        	return basketRepository.findAll();
+        }else {
 		OrderEntity orderList = orderRepository.getByUserIdUserId(userId);
 		Integer cartId = orderList.getCartId();
 		return basketRepository.findByCartIdCartId(cartId);
+        }
+	}
+
+	public String updateOrderStatus(Integer orderId,String status) {
+		OrderEntity order = fetchEntityById(orderRepository.findById(orderId),"Order");
+		order.setOrderStatus(status);
+		return "The status of order with orderId "+orderId+" has been updated to"+status;
 		
+	}
+	
+	public Double getTotalPayableAmount(Integer orderId) {
+		if(!orderRepository.existsById(orderId)) {
+			throw new OrderNotFoundException("Order with "+ orderId +" is not found");
+		}
+		OrderEntity order = fetchEntityById(orderRepository.findById(orderId),"Order");
+		Integer cartId =order.getCartId();
+		List<BasketEntity> cartItems = basketRepository.findByCartIdCartId(cartId);
+		Double totalprice = 0.0;
+		for(BasketEntity basketItem:cartItems) {
+			Integer productId = basketItem.getProductId();
+		  ProductEntity product = fetchEntityById(productRepository.findById(cartId),"Product");
+		  totalprice+= product.getPrice()*basketItem.getQuantity();
+		  
+		}
+		return totalprice;
 	}
 }

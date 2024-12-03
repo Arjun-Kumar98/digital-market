@@ -60,4 +60,12 @@ return ResponseEntity.ok(productService.findbyPrice(startPrice, endPrice));
 	public ResponseEntity<List<ProductEntity>> findByProductNameOrCategory(@RequestParam(required = false)String productName,@RequestParam(required = false) String categoryName){
 		return ResponseEntity.ok(productService.findProductbyNameorCategory(productName, categoryName));
 	}
+	
+	@Validated
+	@GetMapping("/viewProducts")
+	public ResponseEntity<List<ProductEntity>> fetchAllProducts(){
+		return ResponseEntity.ok(productService.listProducts());
+	}
+	
+	
 }
