@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "wishlist")
+@Table(name = "wishlist",uniqueConstraints = @UniqueConstraint(columnNames= {"user_name","product_name"}))
 public class WishlistEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class WishlistEntity {
 	private Integer wishId;
 
 	@ManyToOne
-	@Column(name = "user_name")
+	@JoinColumn(name ="user_name")
 	@JsonProperty("userName")
 	@NotNull(message = "username cannot be null")
 	private UserEntity userName;

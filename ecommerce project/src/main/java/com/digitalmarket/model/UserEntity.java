@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name="user_list")
+@Table(name="user_list",uniqueConstraints = @UniqueConstraint(columnNames= {"user_name"}))
 public class UserEntity {
 
 @Id
