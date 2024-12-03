@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
 import com.digitalmarket.repository.*;
 import com.digitalmarket.model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 @Service
 public class ProductService {
 	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
@@ -55,9 +57,9 @@ public List<ProductEntity> findbyPrice(Double startPrice,Double endPrice){
 	return productList;
 }
 
-public List<ProductEntity> listProducts(){
-	List<ProductEntity> productList = productRepository.findAll();
-	return productList;
+public Page<ProductEntity> listProducts(Pageable pageable){
+	return productRepository.findAll(pageable);
+	
 }
 
 }
