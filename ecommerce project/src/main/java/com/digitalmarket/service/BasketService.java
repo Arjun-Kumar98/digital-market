@@ -29,6 +29,10 @@ public class BasketService {
 
 	@Autowired
 	private WishlistRepository wishlistRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	private <T> T fetchEntityById(Optional<T> optionalEntity, String entityName) {
 		return optionalEntity.orElseThrow(() -> new EntityNotFoundException(entityName + "not found"));
 	}
@@ -52,18 +56,20 @@ public class BasketService {
 	}
 	
 	public String saveWishlistItems(WishlistRequestDTO wishlistRequestDTO) {
-		for(WishlistRequestDTO.ProductName productName: wishlistRequestDTO.getProducts()) {
-			
+	
+
+		for(WishlistRequestDTO.ProductName productName: wishlistRequestDTO.getProductList()) {
+			logger.info("the name is === {}",wishlistRequestDTO.getUserId());
 			WishlistEntity wish = new WishlistEntity();
-			wish.setUserName(wishlistRequestDTO.getUserName());
-			wish.setProductName(productName.getProductName());
+			wish.setUserId(wishlistRequestDTO.getUserId());
+			wish.setProduct(productName.getProductName());
 			wishlistRepository.save(wish);
 		}
 		return "The wishlist details have been saved successfully";
 	}
 	
-	public List<WishlistEntity> viewWishlistItems(String userName) {
-		List<WishlistEntity> wishList = wishlistRepository.findByUserNameUserName(userName);
+	public List<WishlistEntity> viewWishlistItems(Integer userId) {
+		List<WishlistEntity> wishList = wishlistRepository.findByUserIdUserId(userId);
 		return wishList;
 	}
 	

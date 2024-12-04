@@ -41,7 +41,7 @@ class UserServiceTest {
         // Arrange
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(1);
-        userEntity.setUsername("TestUser");
+        userEntity.setUserName("TestUser");
         userEntity.setPassword("raw_password");
 
         when(passwordService.hashPassword("raw_password")).thenReturn("hashed_password");
@@ -60,11 +60,11 @@ class UserServiceTest {
         // Arrange
         UserEntity existingUser = new UserEntity();
         existingUser.setUserId(1);
-        existingUser.setUsername("OldName");
+        existingUser.setUserName("OldName");
 
         UserEntity updatedUser = new UserEntity();
         updatedUser.setUserId(1);
-        updatedUser.setUsername("NewName");
+        updatedUser.setUserName("NewName");
         updatedUser.setEmailId("new@example.com");
         updatedUser.setAddress("New Address");
 
@@ -76,7 +76,7 @@ class UserServiceTest {
         // Assert
         assertEquals("User details have been udpated successfully", response);
         verify(userRepository, times(1)).save(existingUser);
-        assertEquals("NewName", existingUser.getUsername());
+        assertEquals("NewName", existingUser.getUserName());
         assertEquals("new@example.com", existingUser.getEmailId());
         assertEquals("New Address", existingUser.getAddress());
     }

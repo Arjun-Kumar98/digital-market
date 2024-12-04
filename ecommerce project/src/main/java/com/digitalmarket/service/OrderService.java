@@ -103,7 +103,7 @@ public class OrderService {
 	public String updateOrderStatus(Integer orderId,String status) {
 		OrderEntity order = fetchEntityById(orderRepository.findById(orderId),"Order");
 		order.setOrderStatus(status);
-		return "The status of order with orderId "+orderId+" has been updated to"+status;
+		return "The status of order with orderId "+orderId+" has been updated to "+status;
 		
 	}
 	

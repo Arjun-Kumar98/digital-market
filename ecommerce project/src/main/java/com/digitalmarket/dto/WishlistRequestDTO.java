@@ -3,12 +3,12 @@ import java.util.*;
 
 
 public class WishlistRequestDTO {
-private String userName;
+private Integer userId;
 private List<ProductName> productList;
 public static class ProductName{
-	String productName;
+	private String productName;
 	
-	public void setProductName(String productName) {
+	public void setProduct(String productName) {
 		this.productName = productName;
 	}
 	
@@ -17,19 +17,19 @@ public static class ProductName{
 	}
 }
 
-public String getUserName() {
-	return userName;
+public Integer getUserId() {
+	return userId;
 }
 
-public void setUserName(String userName) {
-	this.userName = userName;
+public void setUserId(Integer userId) {
+	this.userId = userId;
 }
 
-public List<ProductName> getProducts(){
+public List<ProductName> getProductList(){
 	return productList;
 }
 
-public void setProducts(List<ProductName> productList) {
+public void setProductList(List<ProductName> productList) {
 	this.productList = productList;
 }
 

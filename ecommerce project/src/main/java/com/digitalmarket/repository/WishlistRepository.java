@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.digitalmarket.model.*;
 public interface WishlistRepository extends JpaRepository<WishlistEntity,Integer> {
- public List<WishlistEntity> findByUserNameUserName(String userName); 
+ public List<WishlistEntity> findByUserIdUserId(Integer userId); 
 }

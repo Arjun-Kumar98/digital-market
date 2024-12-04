@@ -57,15 +57,16 @@ public ResponseEntity<List<BasketEntity>> viewProducts(@PathVariable("id") Integ
 	return ResponseEntity.ok(cartList);
 }
 
-@Validated
+
 @PostMapping("/addWishlistItems")
-public ResponseEntity<String> insetWishlistItems(@RequestBody WishlistRequestDTO wishlistRequest){
+public ResponseEntity<String> insertWishlistItems(@RequestBody WishlistRequestDTO wishlistRequest){
+	logger.info("the wishlist request is == {}",wishlistRequest);
 	String responsemsg = basketService.saveWishlistItems(wishlistRequest);
 	return ResponseEntity.ok(responsemsg);
 }
 
-@GetMapping("/viewWishlistItems")
-public ResponseEntity<List<WishlistEntity>> viewWishlistItems(String userName){
-	return ResponseEntity.ok(basketService.viewWishlistItems(userName));
+@GetMapping("/viewWishlistItems/{id}")
+public ResponseEntity<List<WishlistEntity>> viewWishlistItems(@PathVariable("id") Integer userId){
+	return ResponseEntity.ok(basketService.viewWishlistItems(userId));
 }
 }

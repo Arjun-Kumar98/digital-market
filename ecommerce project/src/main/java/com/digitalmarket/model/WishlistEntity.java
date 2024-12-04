@@ -3,12 +3,17 @@ package com.digitalmarket.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.digitalmarket.controller.ShoppingController;
+import com.digitalmarket.model.UserEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "wishlist",uniqueConstraints = @UniqueConstraint(columnNames= {"user_name","product_name"}))
+@Table(name = "wishlist",uniqueConstraints = @UniqueConstraint(columnNames= {"user_id","product_name"}))
 public class WishlistEntity {
+	private static final Logger logger = LoggerFactory.getLogger(WishlistEntity.class);
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "wish_id")
@@ -16,11 +21,11 @@ public class WishlistEntity {
 	private Integer wishId;
 
 	@ManyToOne
-	@JoinColumn(name ="user_name")
-	@JsonProperty("userName")
-	@NotNull(message = "username cannot be null")
-	private UserEntity userName;
-
+	@JoinColumn(name ="user_id")
+	@JsonProperty("userId")
+	private UserEntity userId;
+   
+	@NotNull(message="product name cannot be null")
 	@Column(name = "product_name")
 	@JsonProperty("productName")
 	private String productName;
@@ -33,17 +38,17 @@ public class WishlistEntity {
 		this.wishId = wishId;
 	}
 
-	public String getUserName() {
-		return userName != null ? userName.getUsername() : null;
+	public Integer getUserId() {
+		return userId != null ? userId.getUserId() : null;
 	}
 
-	public void setUserName(String userName) {
-		if (userName != null) {
+	public void setUserId(Integer userId) {
+		if (userId != null) {
 			UserEntity user = new UserEntity();
-			user.setUsername(userName);
-			this.userName = user;
+			user.setUserId(userId);
+			this.userId = user;
 		} else {
-			this.userName = null;
+			this.userId = null;
 		}
 	}
 
@@ -51,7 +56,7 @@ public class WishlistEntity {
 		return productName;
 	}
 
-	public void setProductName(String productName) {
+	public void setProduct(String productName) {
 		this.productName = productName;
 	}
 

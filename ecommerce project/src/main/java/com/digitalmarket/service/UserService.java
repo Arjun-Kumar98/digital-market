@@ -38,7 +38,7 @@ public class UserService {
 
 public String updateUserDetails(UserEntity userEntity) {
 	UserEntity updateUser = fetchEntityById(userRepository.findById(userEntity.getUserId()),"user");
-	updateUser.setUsername(userEntity.getUsername());
+	updateUser.setUserName(userEntity.getUserName());
 	updateUser.setEmailId(userEntity.getEmailId());
 	updateUser.setAddress(userEntity.getAddress());
 	userRepository.save(updateUser);
