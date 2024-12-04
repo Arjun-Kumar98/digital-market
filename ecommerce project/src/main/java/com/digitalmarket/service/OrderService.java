@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import com.digitalmarket.exception.*;
 import com.digitalmarket.dto.*;
+import org.springframework.data.domain.*;
 import java.util.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -94,7 +95,11 @@ public class OrderService {
 		return basketRepository.findByCartIdCartId(cartId);
         }
 	}
-
+	
+	public Page<BasketEntity> viewAllOrderHistory(Pageable pageable) {
+        return basketRepository.findAll(pageable);
+        }
+	
 	public String updateOrderStatus(Integer orderId,String status) {
 		OrderEntity order = fetchEntityById(orderRepository.findById(orderId),"Order");
 		order.setOrderStatus(status);

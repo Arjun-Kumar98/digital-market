@@ -55,6 +55,16 @@ public ResponseEntity<List<BasketEntity>> viewOrderList(@PathVariable("id") Inte
 	return ResponseEntity.ok(cartList);
 }
 
+@GetMapping("/viewAllOrders")
+public ResponseEntity<Page<BasketEntity>> viewAllOrders(@RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="0")int size){
+	Pageable pageable = PageRequest.of(page, size);
+return	ResponseEntity.ok(orderService.viewAllOrderHistory(pageable));
+}
+	
+
+
+
+
 @PutMapping("/updateOrderStatus/{id}")
 public ResponseEntity<String> updateOrderStatus(@PathVariable("id") Integer orderId,
 		@RequestParam(required = true) String status) {
