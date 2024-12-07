@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
 import com.digitalmarket.exception.*;
 import javax.persistence.EntityNotFoundException;
 
@@ -117,7 +123,7 @@ class ProductServiceTest {
         ProductEntity product2 = new ProductEntity();
         product2.setCategory(category);
 
-        when(productRepository.findByProductNameOrCategory(productName, category))
+        when(productRepository.findByProductNameIgnoreCaseOrCategoryIgnoreCase(productName, category))
                 .thenReturn(List.of(product1, product2));
 
         // Act
@@ -125,7 +131,7 @@ class ProductServiceTest {
 
         // Assert
         assertEquals(2, products.size());
-        verify(productRepository, times(1)).findByProductNameOrCategory(productName, category);
+        verify(productRepository, times(1)).findByProductNameIgnoreCaseOrCategoryIgnoreCase(productName, category);
     }
 
     @Test
@@ -138,15 +144,17 @@ class ProductServiceTest {
         product1.setPrice(150.0);
         ProductEntity product2 = new ProductEntity();
         product2.setPrice(300.0);
-
-        when(productRepository.findByPriceBetween(startPrice, endPrice))
-                .thenReturn(List.of(product1, product2));
+		Pageable pageable = PageRequest.of(0, 10);
+		Page<ProductEntity> productPage = new PageImpl<>(List.of(product1,product2),pageable,2);
+		
+        when(productRepository.findByPriceBetween(startPrice, endPrice,pageable))
+                .thenReturn(productPage);
 
         // Act
-        List<ProductEntity> products = productService.findbyPrice(startPrice, endPrice);
+        Page<ProductEntity> products = productService.findbyPrice(startPrice, endPrice,pageable);
 
         // Assert
-        assertEquals(2, products.size());
-        verify(productRepository, times(1)).findByPriceBetween(startPrice, endPrice);
+        assertEquals(2, products.getContent().size());
+        verify(productRepository, times(1)).findByPriceBetween(startPrice, endPrice,pageable);
     }
 }

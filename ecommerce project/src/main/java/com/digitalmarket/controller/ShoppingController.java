@@ -31,14 +31,14 @@ public ResponseEntity<String> addCart(@RequestBody ShoppingcartEntity shoppingCa
 
 @Validated
 @PostMapping("/addCartItems")
-public ResponseEntity<String> updateCart(@RequestBody BasketRequestDTO basketRequest){
+public ResponseEntity<String> updateCart(@RequestBody @Valid BasketRequestDTO basketRequest){
 	String responsemsg = basketService.saveBasketDetails(basketRequest);
 	return ResponseEntity.ok(responsemsg);
 }
 
 @Validated
 @PutMapping("/modifyCartItems")
-public ResponseEntity<String> modifyCartItems(@RequestBody BasketRequestDTO basketRequest){
+public ResponseEntity<String> modifyCartItems(@RequestBody @Valid BasketRequestDTO basketRequest){
 	logger.info("the request is === {}",basketRequest);
 	String responsemsg = basketService.updateBasketDetails(basketRequest);
 	return ResponseEntity.ok(responsemsg);
@@ -46,27 +46,27 @@ public ResponseEntity<String> modifyCartItems(@RequestBody BasketRequestDTO bask
 
 @DeleteMapping("/removeCartItems")
 public ResponseEntity<String> deleteProducts(
-      @RequestBody BasketRequestDTO basketRequest) {
+      @RequestBody @Valid BasketRequestDTO basketRequest) {
     String response = basketService.deleteProduct(basketRequest);
     return ResponseEntity.ok(response);
 }
 
 @GetMapping("/viewCart/{id}")
-public ResponseEntity<List<BasketEntity>> viewProducts(@PathVariable("id") Integer cartId){
-	List<BasketEntity> cartList = basketService.viewCartItems(cartId);
-	return ResponseEntity.ok(cartList);
+public ResponseEntity<List<BasketRequestDTO>> viewProducts(@PathVariable("id") Integer cartId){
+
+	return ResponseEntity.ok( basketService.viewCartItems(cartId));
 }
 
 
 @PostMapping("/addWishlistItems")
-public ResponseEntity<String> insertWishlistItems(@RequestBody WishlistRequestDTO wishlistRequest){
+public ResponseEntity<String> insertWishlistItems(@RequestBody @Valid WishlistRequestDTO wishlistRequest){
 	logger.info("the wishlist request is == {}",wishlistRequest);
 	String responsemsg = basketService.saveWishlistItems(wishlistRequest);
 	return ResponseEntity.ok(responsemsg);
 }
 
 @GetMapping("/viewWishlistItems/{id}")
-public ResponseEntity<List<WishlistEntity>> viewWishlistItems(@PathVariable("id") Integer userId){
+public ResponseEntity<List<WishlistRequestDTO>> viewWishlistItems(@PathVariable("id") Integer userId){
 	return ResponseEntity.ok(basketService.viewWishlistItems(userId));
 }
 }

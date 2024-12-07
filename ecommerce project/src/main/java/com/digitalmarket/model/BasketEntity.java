@@ -3,10 +3,14 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import com.digitalmarket.model.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name="shoppingcart_product_mapping",
-uniqueConstraints = @UniqueConstraint(columnNames = {"cart_id", "product_id"}))
+uniqueConstraints = @UniqueConstraint(columnNames = {"cart_id", "product_id"}),
+indexes=@Index(name = "idx_cart_product", columnList = "cart_id, product_id"))
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class BasketEntity {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -16,18 +20,18 @@ private Integer cartProductMapId;
 
 @ManyToOne
 @NotNull(message = "cart Id cannot be null")
-@JoinColumn(name="cart_id")
+@JoinColumn(name="cart_id",nullable=false)
 @JsonProperty("cartId")
 private ShoppingcartEntity cartId;
 @ManyToOne
 @NotNull(message="Product Id cannot be null")
 @JsonProperty("productId")
-@JoinColumn(name="product_id")
+@JoinColumn(name="product_id",nullable=false)
 private ProductEntity productId;
 
 @NotNull(message = "Quantity cannot be null")
 @Min(value=1, message="quantity should be atleast 1")
-@Column(name="quantity")
+@Column(name="quantity",nullable=false)
 @JsonProperty("quantity")
 private Integer quantity;
 

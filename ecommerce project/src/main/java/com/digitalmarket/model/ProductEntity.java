@@ -1,20 +1,25 @@
 package com.digitalmarket.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
 
 @Entity
 @Table(name="product_list")
-
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProductEntity {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name="product_id")
 private Integer productId;
 
-@Column(name="product_name")
+@Column(name="product_name",nullable=false)
 @JsonProperty("productName")
 @NotNull(message="Product name cannot be null")
 private String productName;
@@ -23,18 +28,20 @@ private String productName;
 @JsonProperty("description")
 private String description;
 
-@Column(name="price")
+@Column(name="price",nullable=false)
 @JsonProperty("price")
 @NotNull(message="price cannot be null")
+@DecimalMin(value="10.00", message="price should be atleast 10.00")
 private Double price;
 
 
-@Column(name="stock")
+@Column(name="stock",nullable=false)
 @JsonProperty("stock")
+@Min(value=1, message="stock should be atleast 1")
 @NotNull(message="stock cannot be null")
 private Integer stock;
 
-@Column(name="category")
+@Column(name="category",nullable=false)
 @JsonProperty("category")
 private String category;
 

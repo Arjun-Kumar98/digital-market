@@ -27,6 +27,12 @@ import java.util.*;
 @Transactional
 public class OrderServiceIntegrationTest {
 
+	public enum OrderStatus {
+	    ACTIVE,
+	    PAID,
+	    SHIPPED,
+	    DELIVERED;
+	}
     @Autowired
     private OrderService orderService; // Service under test
 
@@ -58,7 +64,7 @@ public class OrderServiceIntegrationTest {
 
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setCartId(cartId);
-        orderEntity.setOrderStatus("Pending");
+       orderEntity.setOrderStatus(OrderEntity.OrderStatus.ACTIVE);
 
         // Test method execution
         String result = orderService.addOrder(orderEntity);
@@ -88,7 +94,7 @@ public class OrderServiceIntegrationTest {
 
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setCartId(cartId);
-        orderEntity.setOrderStatus("Pending");
+        orderEntity.setOrderStatus(OrderEntity.OrderStatus.ACTIVE);
 
         // Test method execution
         String result = orderService.addOrder(orderEntity);

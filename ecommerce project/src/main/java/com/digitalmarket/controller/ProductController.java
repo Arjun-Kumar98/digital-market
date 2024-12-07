@@ -50,8 +50,10 @@ ProductService productService;
 	
 	@Validated
 	@GetMapping("/priceRange")
-	public ResponseEntity<List<ProductEntity>> findProductsBetweenPrice(@RequestParam(required = true)Double startPrice,@RequestParam(required = true)Double endPrice){
-return ResponseEntity.ok(productService.findbyPrice(startPrice, endPrice));
+	public ResponseEntity<Page<ProductEntity>> findProductsBetweenPrice(@RequestParam(required = true)Double startPrice,@RequestParam(required = true)Double endPrice,
+			@RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="10")int size){
+		Pageable pageable = PageRequest.of(page, size);
+return ResponseEntity.ok(productService.findbyPrice(startPrice, endPrice,pageable));
 		
 	}
     

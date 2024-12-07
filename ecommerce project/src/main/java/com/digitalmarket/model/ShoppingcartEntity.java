@@ -14,7 +14,7 @@ private Integer cartId;
 
 @ManyToOne
 @NotNull(message="user id cannot be null")
-@JoinColumn(name="user_id")
+@JoinColumn(name="user_id",nullable=false)
 @JsonProperty("userId")
 private UserEntity userId;
 

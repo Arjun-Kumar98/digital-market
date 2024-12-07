@@ -48,13 +48,13 @@ public void deleteProduct(Integer productId) {
 }
 
 public List<ProductEntity> findProductbyNameorCategory(String productName,String Category){
-	List<ProductEntity> productList = productRepository.findByProductNameOrCategory(productName, Category);
+	List<ProductEntity> productList = productRepository.findByProductNameIgnoreCaseOrCategoryIgnoreCase(productName, Category);
 	return productList;
 }
 
-public List<ProductEntity> findbyPrice(Double startPrice,Double endPrice){
-	List<ProductEntity> productList = productRepository.findByPriceBetween(startPrice, endPrice);
-	return productList;
+public Page<ProductEntity> findbyPrice(Double startPrice,Double endPrice,Pageable pageable){
+ return productRepository.findByPriceBetween(startPrice, endPrice,pageable);
+
 }
 
 public Page<ProductEntity> listProducts(Pageable pageable){

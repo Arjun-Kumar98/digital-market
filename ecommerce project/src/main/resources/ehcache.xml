@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns="http://www.ehcache.org/schema/ehcache"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      >
+
+    <cache alias="com.digitalmarket.model.ProductEntity"
+           durability="TRANSACTIONAL">
+        <heap unit="entries">500</heap>
+        <expiry>
+            <ttl unit="seconds">1800</ttl> <!-- Cache Time-to-live (TTL) in seconds -->
+        </expiry>
+    </cache>
+
+    <cache alias="com.digitalmarket.model.UserEntity"
+           durability="TRANSACTIONAL">
+        <heap unit="entries">500</heap>
+        <expiry>
+            <ttl unit="seconds">1800</ttl> <!-- Cache Time-to-live (TTL) in seconds -->
+        </expiry>
+    </cache>
+    
+        <cache alias="com.digitalmarket.model.OrderEntity"
+           durability="TRANSACTIONAL">
+        <heap unit="entries">500</heap>
+        <expiry>
+            <ttl unit="seconds">1800</ttl> <!-- Cache Time-to-live (TTL) in seconds -->
+        </expiry>
+    </cache>
+    
+        <cache alias="com.digitalmarket.model.BasketEntity"
+           durability="TRANSACTIONAL">
+        <heap unit="entries">500</heap>
+        <expiry>
+            <ttl unit="seconds">1800</ttl> <!-- Cache Time-to-live (TTL) in seconds -->
+        </expiry>
+    </cache>
+    
+
+</ehcache>

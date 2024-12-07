@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.digitalmarket.model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 public interface ProductRepository extends JpaRepository<ProductEntity,Integer>{
-List<ProductEntity> findByProductNameOrCategory(String productName,String Category);
+List<ProductEntity> findByProductNameIgnoreCaseOrCategoryIgnoreCase(String productName,String Category);
 
-List<ProductEntity> findByPriceBetween(Double startprice,Double endprice);
+Page<ProductEntity> findByPriceBetween(Double startprice,Double endprice,Pageable pageable);
 }

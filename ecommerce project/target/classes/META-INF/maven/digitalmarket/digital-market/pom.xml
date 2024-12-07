@@ -74,6 +74,26 @@
         <artifactId>jjwt</artifactId>
         <version>0.9.1</version> <!-- Use the version you prefer -->
     </dependency>
+    
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.6.15.Final</version>
+</dependency>
+
+<!-- Ehcache Dependency -->
+<dependency>
+    <groupId>org.ehcache</groupId>
+    <artifactId>ehcache</artifactId>
+    <version>3.9.9</version>
+</dependency>
+
+<!-- Hibernate EHCache Integration -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-ehcache</artifactId>
+    <version>5.6.15.Final</version>
+</dependency>
   </dependencies>
 
   <repositories>

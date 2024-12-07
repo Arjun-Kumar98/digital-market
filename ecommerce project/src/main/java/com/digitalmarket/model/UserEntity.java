@@ -3,10 +3,17 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name="user_list",uniqueConstraints = @UniqueConstraint(columnNames= {"user_name"}))
+@Table(name="user_list",uniqueConstraints = @UniqueConstraint(columnNames= {"user_name"}),
+indexes=@Index(name = "idx_email", columnList = "email_id"))
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserEntity {
 
 @Id
@@ -14,27 +21,28 @@ public class UserEntity {
 @Column(name="user_id")
 private Integer userId;
 
-@Column(name="user_name")
+@Column(name="user_name",nullable=false)
 @NotNull(message="username cannot be null")
 @JsonProperty("userName")
 private String userName;
 
-@Column(name="password")
+@JsonIgnore
+@Column(name="password",nullable=false)
 @NotNull(message="password cannot be null")
 @JsonProperty("password")
 private String password;
 
-@Column(name="email_id")
+@Column(name="email_id",nullable=false)
 @NotNull(message="emailid cannot be null")
 @Pattern(regexp="^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message="Invalid email format")
 @JsonProperty("emailId")
 private String emailId;
 
-@Column(name="address")
+@Column(name="address",nullable=false)
 @JsonProperty("address")
 private String address;
 
-@Column(name="role_id")
+@Column(name="role_id",nullable=false)
 @JsonProperty("roleId")
 private Integer roleId;
 

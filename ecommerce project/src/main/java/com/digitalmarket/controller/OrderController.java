@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.*;
 import com.digitalmarket.model.*;
+import com.digitalmarket.dto.*;
 import com.digitalmarket.service.*;
 import org.slf4j.Logger;
 import com.digitalmarket.exception.*;
@@ -50,9 +51,9 @@ public ResponseEntity<String> processOrderPayment(@PathVariable("id") Integer or
 }
 
 @GetMapping("/viewOrders/{id}")
-public ResponseEntity<List<BasketEntity>> viewOrderList(@PathVariable("id") Integer userId){
-	List<BasketEntity> cartList = orderService.viewOrderHistory(userId);
-	return ResponseEntity.ok(cartList);
+public ResponseEntity<List<BasketRequestDTO>> viewOrderList(@PathVariable("id") Integer userId){
+	List<BasketRequestDTO> cartDTOList = orderService.viewOrderHistory(userId);
+	return ResponseEntity.ok(cartDTOList);
 }
 
 @GetMapping("/viewAllOrders")
@@ -67,7 +68,7 @@ return	ResponseEntity.ok(orderService.viewAllOrderHistory(pageable));
 
 @PutMapping("/updateOrderStatus/{id}")
 public ResponseEntity<String> updateOrderStatus(@PathVariable("id") Integer orderId,
-		@RequestParam(required = true) String status) {
+		@RequestParam(required = true) Integer status) {
 	String responseMsg = orderService.updateOrderStatus(orderId, status);
 	return ResponseEntity.ok(responseMsg);
 

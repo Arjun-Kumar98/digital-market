@@ -1,5 +1,4 @@
 package com.digitalmarket.service;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.digitalmarket.exception.*;
@@ -18,6 +17,13 @@ import com.digitalmarket.model.*;
 @Service
 
 public class OrderService {
+	public enum OrderStatus {
+	    ACTIVE,
+	    PAID,
+	    SHIPPED,
+	    DELIVERED;
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 	@Autowired
 	private OrderRepository orderRepository;
@@ -55,7 +61,7 @@ public class OrderService {
 		            productRepository.save(product);
 		        }
 		    }
-
+               orderEntity.setOrderStatus(OrderEntity.OrderStatus.ACTIVE);
 		    orderRepository.save(orderEntity);
 		    return "The order has been placed";
 		}
@@ -84,26 +90,33 @@ public class OrderService {
 		return "The order has been cancelled";
 	}
 	
-	public List <BasketEntity> viewOrderHistory(Integer userId) {
+	public List <BasketRequestDTO> viewOrderHistory(Integer userId) {
         UserEntity user = fetchEntityById(userRepository.findById(userId),"user");
-        Integer roleId = user.getRoleId();
-        if(roleId==1) {
-        	return basketRepository.findAll();
-        }else {
+        
 		OrderEntity orderList = orderRepository.getByUserIdUserId(userId);
 		Integer cartId = orderList.getCartId();
-		return basketRepository.findByCartIdCartId(cartId);
+		List<BasketEntity> cartList = basketRepository.findByCartIdCartId(cartId);
+		   List<BasketRequestDTO> cartDTOList = cartList.stream().collect(Collectors.groupingBy(BasketEntity::getCartId,
+				   Collectors.mapping(entity->new BasketRequestDTO.ProductRequest(entity.getProductId(),entity.getQuantity()),
+						   Collectors.toList())
+		   ))
+				   .entrySet().stream().map(entry->new BasketRequestDTO(entry.getKey(),entry.getValue())).collect(Collectors.toList());
+		   return cartDTOList;
         }
-	}
+	
 	
 	public Page<BasketEntity> viewAllOrderHistory(Pageable pageable) {
         return basketRepository.findAll(pageable);
         }
 	
-	public String updateOrderStatus(Integer orderId,String status) {
+	public String updateOrderStatus(Integer orderId,Integer status) {
 		OrderEntity order = fetchEntityById(orderRepository.findById(orderId),"Order");
-		order.setOrderStatus(status);
-		return "The status of order with orderId "+orderId+" has been updated to "+status;
+		if(status==1) {
+		order.setOrderStatus(OrderEntity.OrderStatus.SHIPPED);
+		}else{
+			order.setOrderStatus(OrderEntity.OrderStatus.DELIVERED);
+		}
+		return "The status of order with orderId "+orderId+" has been updated";
 		
 	}
 	

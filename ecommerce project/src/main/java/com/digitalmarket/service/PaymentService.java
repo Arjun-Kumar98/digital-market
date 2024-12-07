@@ -17,6 +17,12 @@ import com.digitalmarket.model.*;
 import com.digitalmarket.service.*;
 @Service
 public class PaymentService {
+	public enum OrderStatus {
+	    ACTIVE,
+	    PAID,
+	    SHIPPED,
+	    DELIVERED;
+	}
 	private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
 	  @Autowired
 	    private OrderRepository orderRepository;
@@ -33,12 +39,11 @@ public class PaymentService {
 	    double finalamount = totalAmount - (totalAmount *(discount/100));
 		boolean payment = simulatePayment();
 		if(payment) {
-			order.setOrderStatus("paid");
+			order.setOrderStatus(OrderEntity.OrderStatus.PAID);
 			orderRepository.save(order);
 			return "payment of "+finalamount+"is successfull";
 		}else {
-			order.setOrderStatus("payment pending");
-			orderRepository.save(order);
+
 			return "payment failure please try again";
 		}
 	}
