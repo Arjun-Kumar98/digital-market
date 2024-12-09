@@ -120,7 +120,6 @@ public class BasketService {
 	}
 
 	public List<BasketRequestDTO> viewCartItems(Integer cartId) {
-
 		List<BasketEntity> cartList = basketRepository.findByCartIdCartId(cartId);
 		   List<BasketRequestDTO> cartDTOList = cartList.stream().collect(Collectors.groupingBy(BasketEntity::getCartId,
 				   Collectors.mapping(entity->new BasketRequestDTO.ProductRequest(entity.getProductId(),entity.getQuantity()),
