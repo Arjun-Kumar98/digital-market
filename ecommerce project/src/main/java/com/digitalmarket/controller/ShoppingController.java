@@ -53,7 +53,6 @@ public ResponseEntity<String> deleteProducts(
 
 @GetMapping("/viewCart/{id}")
 public ResponseEntity<List<BasketRequestDTO>> viewProducts(@PathVariable("id") Integer cartId){
-
 	return ResponseEntity.ok( basketService.viewCartItems(cartId));
 }
 
