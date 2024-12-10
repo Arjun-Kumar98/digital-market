@@ -39,10 +39,12 @@ private String password;
 private String emailId;
 
 @Column(name="address",nullable=false)
+@NotNull(message="address cannot be null")
 @JsonProperty("address")
 private String address;
 
 @Column(name="role_id",nullable=false)
+@NotNull(message="role Id cannot be null")
 @JsonProperty("roleId")
 private Integer roleId;
 
