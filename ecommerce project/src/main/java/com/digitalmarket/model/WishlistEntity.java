@@ -21,12 +21,13 @@ public class WishlistEntity {
 	private Integer wishId;
 
 	@ManyToOne
-	@JoinColumn(name ="user_id")
+	@NotNull(message="user Id cannot be null")
+	@JoinColumn(name ="user_id",nullable=false)
 	@JsonProperty("userId")
 	private UserEntity userId;
    
 	@NotNull(message="product name cannot be null")
-	@Column(name = "product_name")
+	@Column(name = "product_name",nullable=false)
 	@JsonProperty("productName")
 	private String productName;
 
