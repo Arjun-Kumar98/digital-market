@@ -56,11 +56,11 @@ class ProductServiceTest {
     void testUpdateProduct() {
         ProductEntity existingProduct = new ProductEntity();
         existingProduct.setProductId(1);
-        existingProduct.setProductName("Old Name");
+        existingProduct.setProductName("Macro");
 
         ProductEntity updatedProduct = new ProductEntity();
         updatedProduct.setProductId(1);
-        updatedProduct.setProductName("New Name");
+        updatedProduct.setProductName("Micro");
 
         when(productRepository.findById(1)).thenReturn(Optional.of(existingProduct));
 
@@ -77,9 +77,9 @@ class ProductServiceTest {
     void testUpdateProductThrowsException() {
         // Arrange
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setProductId(99);
+        productEntity.setProductId(92);
 
-        when(productRepository.findById(99)).thenReturn(Optional.empty());
+        when(productRepository.findById(92)).thenReturn(Optional.empty());
 
         // Act & Assert
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () ->
@@ -103,13 +103,13 @@ class ProductServiceTest {
     @Test
     void testDeleteProductThrowsException() {
         // Arrange
-        Integer productId = 99;
+        Integer productId = 92;
         when(productRepository.existsById(productId)).thenReturn(false);
 
         // Act & Assert
         ProductNotFoundException exception = assertThrows(ProductNotFoundException.class, () ->
                 productService.deleteProduct(productId));
-        assertEquals("Product with Id 99 is not found", exception.getMessage());
+        assertEquals("Product with Id 92 is not found", exception.getMessage());
     }
 
     @Test
