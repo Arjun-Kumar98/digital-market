@@ -1,67 +1,78 @@
-Prerequisites
+# Digital Market
+It is a sample ecommerce market simulation.
 
-Java 17 or later
+## **Prerequisites**
+- Java 17 or later
+- Springboot version 2.7.5+
+- Git (for cloning the repository)
+- IDE (e.g., IntelliJ IDEA, Eclipse)
 
-Springboot version 2.7.5+
+## **Getting Started**
+1. Clone the repository
+2. Open the repository in an IDE
+3. Navigate to the application properties page to view the MySQL database configuration.
+4. Go to the main class and run the application as a Java application.
 
-Git (for cloning the repository)
+## **API List**
 
-IDE
+### **Users** (`/USER`)
+- **POST**: `/saveUser`  
+  To save a user.
+  
+- **PUT**: `/updateUser`  
+  To update a user.
 
-Getting Started
+- **POST**: `/login?emailId=?&password=?`  
+  This API returns a token. Use this token in the authorization bearer for future API requests.
 
-Clone the repository
+---
 
-cd digital-market to go into the project root
+### **Product** (`/PRODUCT`)
+- **POST**: `/saveProduct`  
+  To save a product.
 
-Navigate to the application properties page, to view the mysql database configuration.
+- **PUT**: `/updateProduct`  
+  To update the product details.
 
-Go to the main class and run the application as a Java application
+- **DELETE**: `/delete/{id}`  
+  To delete a product.
 
-API LIST
-Users :/USER
+- **GET**: `/priceRange`  
+  To get products within a price range.
 
-POST:/saveUser - to save a user
+- **GET**: `/findByNameOrCategory`  
+  To filter products by name or category.
 
-PUT:/updateUser - to update a user
+---
 
-POST:/login?emailId=?&password=? // this api will return a token, that token needs to be placed in the authorization bearer for future apis
+### **Shopping** (`/SHOPPING`)
+- **POST**: `/addCart`  
+  To create a new cart.
 
-Product: /PRODUCT
+- **PUT**: `/addCartItems`  
+  To add items to the cart.
 
-POST:/saveProduct - to save a product
+- **PUT**: `/modifyCartItems`  
+  To modify cart items.
 
-PUT:/updateProduct - to update the product details
+- **DELETE**: `/products/{id}`  
+  To delete items in the cart.
 
-DELETE:/delete/{id} - to delete a product
+- **GET**: `/viewCart`  
+  To view the current cart items.
 
-GET:/priceRange - to get products between a price range
+---
 
-GET:/findByNameOrCategory - to filter products by their name or category
+### **Order** (`/ORDER`)
+- **POST**: `/placeOrder`  
+  To place your order.
 
-Shopping:/SHOPPING
+- **DELETE**: `/delete/{id}`  
+  To delete an order.
 
-POST:/addCart - to add a cart
-
-PUT:/addCartItems - to add items in the cart
-
-PUT:/modifyCartItems - to modify cart items
-
-DELETE:/products/{id} - to delete items in a cart
-
-GET:/viewCart - to view the current cart items
+- **GET**: `/payment/{id}`  
+  To process payment for an order.
 
 
-Order:/ORDER
-
-POST:/placeOrder - to place your order
-
-DELETE:/delete/{id} - to delete an order
-
-GET:/payment/{id} - to pay for the order
-
-ASSUMPTIONS:
-
-The APIs will be called in a sequential manner
 
 
