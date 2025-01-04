@@ -43,8 +43,7 @@ ProductService productService;
 	        productService.deleteProduct(productId);
 			return ResponseEntity.ok("product deleted successfully");
 		} catch (ProductNotFoundException e) {
-			return ResponseEntity.status(404).body("product is not present");
-		
+			return ResponseEntity.status(404).body("product is not present");	
 }
 	}
 	
