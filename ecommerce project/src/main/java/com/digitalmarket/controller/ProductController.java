@@ -53,8 +53,7 @@ ProductService productService;
 	public ResponseEntity<Page<ProductEntity>> findProductsBetweenPrice(@RequestParam(required = true)Double startPrice,@RequestParam(required = true)Double endPrice,
 			@RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="10")int size){
 		Pageable pageable = PageRequest.of(page, size);
-return ResponseEntity.ok(productService.findbyPrice(startPrice, endPrice,pageable));
-		
+return ResponseEntity.ok(productService.findbyPrice(startPrice, endPrice,pageable));	
 	}
     
 	@Validated
