@@ -41,9 +41,9 @@ ProductService productService;
 	public ResponseEntity<String> deleteProductDetails(@PathVariable("id") Integer productId) {
 		try {
 	        productService.deleteProduct(productId);
-			return ResponseEntity.ok("product deleted successfully");
+			return ResponseEntity.ok("Product deleted successfully");
 		} catch (ProductNotFoundException e) {
-			return ResponseEntity.status(404).body("product is not present");	
+			return ResponseEntity.status(404).body("Product is not present");	
 }
 	}
 	
